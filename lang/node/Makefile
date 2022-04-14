@@ -7,27 +7,27 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=node
 
 ifeq ($(CONFIG_NODEJS_16),y)
-PKG_VERSION:=v16.13.0
+PKG_VERSION:=v16.14.2
 PKG_RELEASE:=1
-PKG_HASH:=32114b3dc3945ed0f95f8bc33b42c68e0ef18c408cb56122572a163d907ecbcc
+PKG_HASH:=e922e215cc68eb5f94d33e8a0b61e2c863b7731cc8600ab955d3822da90ff8d1
 PATCH_DIR:=./patches/v16.x
 else
 ifeq ($(CONFIG_NODEJS_14),y)
-PKG_VERSION:=v14.18.1
+PKG_VERSION:=v14.19.1
 PKG_RELEASE:=1
-PKG_HASH:=3fa1d71adddfab2f5e3e41874b4eddbdf92b65cade4a43922fb1e437afcf89ed
+PKG_HASH:=e1ae09dd861ab39af04483bb5c0fa54ddd82b6b15543be9a27ea6704a8ba9dd9
 PATCH_DIR:=./patches/v14.x
 else
-PKG_VERSION:=v12.22.7
+PKG_VERSION:=v12.22.12
 PKG_RELEASE:=1
-PKG_HASH:=cc6a23b44870679a94bd8f3c8d4e1f4b77bb2712a36888ab87463459e6785f6b
+PKG_HASH:=bc42b7f8495b9bfc7f7850dd180bb02a5bdf139cc232b8c6f02a6967e20714f2
 PATCH_DIR:=./patches/v12.x
 endif
 endif
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://mirrors.tencent.com/nodejs-release/$(PKG_VERSION) \
-                https://npm.taobao.org/mirrors/node/$(PKG_VERSION) \
+                https://cdn.npmmirror.com/binaries/node/$(PKG_VERSION) \
                 https://nodejs.org/dist/$(PKG_VERSION)
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
@@ -174,6 +174,7 @@ define Package/node/install
 endef
 
 define Package/node-npm/install
+	$(RM) $(1)/usr/lib/node_modules/npm
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules/npm
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/node_modules/npm/{package.json,LICENSE} \
 		$(1)/usr/lib/node_modules/npm/

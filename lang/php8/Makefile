@@ -6,8 +6,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=php
-PKG_VERSION:=8.0.12
-PKG_RELEASE:=3
+PKG_VERSION:=8.1.4
+PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Michael Heimpold <mhei@heimpold.de>
 PKG_LICENSE:=PHP-3.01
@@ -16,7 +16,7 @@ PKG_CPE_ID:=cpe:/a:php:php
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://www.php.net/distributions/
-PKG_HASH:=a501017b3b0fd3023223ea25d98e87369b782f8a82310c4033d7ea6a989fea0a
+PKG_HASH:=05a8c0ac30008154fb38a305560543fc172ba79fb957084a99b8d3b10d5bdb4b
 
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
@@ -489,9 +489,6 @@ CONFIGURE_VARS+= \
 	ac_cv_php_xml2_config_path="$(STAGING_DIR)/host/bin/xml2-config" \
 	ac_cv_u8t_decompose=yes \
 	ac_cv_have_pcre2_jit=no
-
-MAKE_VARS+= \
-	HOSTCC="$(HOSTCC)"
 
 define Package/php8/conffiles
 /etc/php.ini

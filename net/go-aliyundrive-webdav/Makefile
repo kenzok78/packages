@@ -5,27 +5,22 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go-aliyundrive-webdav
-PKG_VERSION:=1.0.15
+PKG_VERSION:=1.1.1
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/LinkLeong/go-aliyundrive-webdav/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=3950fbd66232334b7eb44d2e0144db0174463f1b618b8e739e4a097573d609d8
+PKG_HASH:=967472971586bc9c62d1579a780e52431eaf37e54f2fe1b180c9a52db2304874
 
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILE:=LICENSE
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
-
-PKG_CONFIG_DEPENDS:= \
-	CONFIG_GO_ALIYUNDRIVE_WEBDAV_COMPRESS_GOPROXY \
-	CONFIG_GO_ALIYUNDRIVE_WEBDAV_COMPRESS_UPX
 
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
 GO_PKG:=go-aliyun-webdav
-GO_PKG_LDFLAGS:=-s -w
 GO_PKG_LDFLAGS_X:=main.Version=v$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
@@ -37,34 +32,11 @@ define Package/go-aliyundrive-webdav
   SUBMENU:=File Transfer
   TITLE:=A WebDav server for AliyunDrive
   URL:=https://github.com/LinkLeong/go-aliyundrive-webdav
-  DEPENDS:=$(GO_ARCH_DEPENDS)
+  DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
-
-define Package/go-aliyundrive-webdav/config
-config GO_ALIYUNDRIVE_WEBDAV_COMPRESS_GOPROXY
-	bool "Compiling with GOPROXY proxy"
-	default n
-
-config GO_ALIYUNDRIVE_WEBDAV_COMPRESS_UPX
-	bool "Compress executable files with UPX"
-	depends on !mips64
-	default y if mips||mipsel
-endef
-
-ifeq ($(CONFIG_GO_ALIYUNDRIVE_WEBDAV_COMPRESS_GOPROXY),y)
-	export GO111MODULE=on
-	export GOPROXY=https://goproxy.baidu.com
-endif
 
 define Package/go-aliyundrive-webdav/conffiles
 /etc/config/go-aliyundrive-webdav
-endef
-
-define Build/Compile
-	$(call GoPackage/Build/Compile)
-ifeq ($(CONFIG_GO_ALIYUNDRIVE_WEBDAV_COMPRESS_UPX),y)
-	$(STAGING_DIR_HOST)/bin/upx --lzma --best $(GO_PKG_BUILD_BIN_DIR)/go-aliyun-webdav
-endif
 endef
 
 define Package/go-aliyundrive-webdav/install

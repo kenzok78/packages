@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ykdl
-PKG_VERSION:=1.8.0a2
+PKG_VERSION:=1.8.0
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/SeaHOH/ykdl/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=b5ad62f83ceb191784a369d28bce4f11bd724c227fa584abfed4d01323824574
+PKG_HASH:=501aec3b956761c8293f73fe716cf17992bce002b01e07aadea0b62aa235403e
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MIT
