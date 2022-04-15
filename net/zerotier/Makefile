@@ -6,14 +6,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
-PKG_VERSION:=1.8.1
+PKG_VERSION:=1.8.6
 PKG_RELEASE:=$(AUTORELEASE)
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/zerotier/ZeroTierOne.git
-PKG_SOURCE_DATE:=2021-11-05
-PKG_SOURCE_VERSION:=7a626abf156a9dbac45a14061e5e1a182083a61c
-PKG_MIRROR_HASH:=b98ca72e72ee4ad8f9fed2ddb14599c94a9e78fd5f44fd9920b4b0e5c6f9dcf7
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/zerotier/ZeroTierOne/tar.gz/$(PKG_VERSION)?
+PKG_HASH:=40dce71426f2649e5159854c37560f5a0b634c23d4774453dae0b7ef620af22a
+PKG_BUILD_DIR:=$(BUILD_DIR)/ZeroTierOne-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Moritz Warning <moritzwarning@web.de>
 PKG_LICENSE:=BSL 1.1
@@ -57,7 +56,7 @@ endif
 endef
 
 # Make binary smaller
-TARGET_CFLAGS += -ffunction-sections -fdata-sections
+TARGET_CFLAGS += -ffunction-sections -fdata-sections -fPIE
 TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
 
 define Package/zerotier/conffiles

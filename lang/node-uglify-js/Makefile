@@ -6,14 +6,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NPM_NAME:=uglify-js
 PKG_NAME:=node-$(PKG_NPM_NAME)
-PKG_VERSION:=3.14.2
+PKG_VERSION:=3.15.3
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NPM_NAME)-$(PKG_VERSION).tgz
 PKG_SOURCE_URL:=https://mirrors.tencent.com/npm/$(PKG_NPM_NAME)/-/ \
-                https://registry.npm.taobao.org/$(PKG_NPM_NAME)/-/ \
+                https://registry.npmmirror.com/$(PKG_NPM_NAME)/-/ \
                 https://registry.npmjs.org/$(PKG_NPM_NAME)/-/
-PKG_HASH:=7422f2401d544809fef1761bcf4816fa3b3d89a9af28386ecf80ecf78f389ba5
+PKG_HASH:=aacbd5ced3bebc93ba91b39776a010627a2ffa55f79037ef445361c1577e70d6
 
 PKG_MAINTAINER:=Hirokazu MORIKAWA <morikw2@gmail.com>
 PKG_LICENSE:=BSD-2-Clause
@@ -78,6 +78,7 @@ define Package/node-uglify-js/install
 	$(LN) ../lib/node/$(PKG_NPM_NAME)/bin/uglifyjs $(1)/usr/bin/uglifyjs
 	$(INSTALL_DIR) $(1)/usr/lib/node_modules
 	$(LN) ../node/$(PKG_NPM_NAME) $(1)/usr/lib/node_modules/$(PKG_NPM_NAME)
+	chmod +x $(1)/usr/lib/node/$(PKG_NPM_NAME)/bin/uglifyjs
 endef
 
 define Package/node-uglify-js/postrm
@@ -109,6 +110,7 @@ define Host/Install
 		$(1)/lib/node_modules/$(PKG_NPM_NAME)/
 	$(INSTALL_DIR) $(1)/bin
 	$(LN) ../lib/node_modules/$(PKG_NPM_NAME)/bin/uglifyjs $(1)/bin/uglifyjs
+	chmod +x $(1)/lib/node_modules/$(PKG_NPM_NAME)/bin/uglifyjs
 endef
 
 $(eval $(call HostBuild))
