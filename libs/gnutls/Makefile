@@ -98,9 +98,7 @@ endef
 define Package/libgnutls
 $(call Package/gnutls/Default)
   TITLE+= (library)
-  DEPENDS+= +libnettle +!LIBNETTLE_MINI:libgmp +GNUTLS_EXT_LIBTASN1:libtasn1 \
-    +GNUTLS_PKCS11:p11-kit +GNUTLS_CRYPTODEV:kmod-cryptodev +libatomic \
-    +libunistring
+  DEPENDS+= +libnettle +!LIBNETTLE_MINI:libgmp +GNUTLS_EXT_LIBTASN1:libtasn1 +GNUTLS_PKCS11:p11-kit +GNUTLS_CRYPTODEV:kmod-cryptodev +libatomic
 endef
 
 define Package/libgnutls-dane
@@ -133,7 +131,8 @@ CONFIGURE_ARGS+= \
 	--enable-local-libopts \
 	--without-idn \
 	--with-default-trust-store-dir=/etc/ssl/certs/ \
-	--with-libunistring-prefix=$(STAGING_DIR) \
+	--with-included-unistring \
+	--with-included-libunistring \
 	--with-librt-prefix="$(LIBRT_ROOT_DIR)/" \
 	--with-pic \
 	--with-system-priority-file="" \
